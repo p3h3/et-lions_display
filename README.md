@@ -1,5 +1,7 @@
 # ET-Lions Display
 
+[Uni Cup](https://hochschulsport.rwth-aachen.de/cms/HSZ/Events/~kkti/Eishockey-Uni-Cup/) is going to be so much fun!
+
 abstract
 --------
 While the Maschis build non working rockets out of shopping karts,
