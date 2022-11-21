@@ -1,5 +1,7 @@
 # ET-Lions Display
 
+[Uni Cup](https://hochschulsport.rwth-aachen.de/cms/HSZ/Events/~kkti/Eishockey-Uni-Cup/) is going to be so much fun!
+
 abstract
 --------
 While the Maschis build non working rockets out of shopping karts,
@@ -31,7 +33,7 @@ Of course the back also got some nice silkscreen.. we can't forget what this dis
 As this massive amount of LEDs is going to need quite a bit of power, we opted to
 use either electric tool batteries (Parkside 18V series) or an ebike battery (36V).
 Either way there will be a few DC/DC Buck converters wired to one DC Input that spread
-the high voltage power to different parts of the board.
+the low voltage high current to different parts of the board without corrupting any color accuracy or losing energy to heat.
 
 
 Holding everything together will hopefully be a rather thin but not bendy plate of wood,
@@ -46,6 +48,13 @@ software design
 the microcontroller of choice for driving these kinds of led matricies is the esp32.
 we are programming it in the Arduino IDE for simplicity. Libraries used will be the
 FastLED library with some tricks to support parallel output for increased framerate.
+
+The general idea for pushing the bitmap onto the display is more complicated than you
+might think as the pixels aren't arranged in 25 straight 45 pixel lines as would be the norm
+for a bitmap. they of course are arranged in 5*5 LED chunks on the individual PCBs.
+
+This brings quite a few challanges, but nothing some code can't solve.
+Further explanation soon.
 
 The data layout and how we are going to put the pictures onto the matrix on the fly
 are coming soon..
