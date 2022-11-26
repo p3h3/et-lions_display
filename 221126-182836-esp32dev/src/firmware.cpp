@@ -2,13 +2,15 @@
 #include "chunking.h"
 #include "bitmaps.h"
 
+#include "img.h"
+
 
 #define FASTLED_ESP32_I2S // This achieves the desired degree of parallelization
 #include <FastLED.h>
 
 #define LEDS_PER_PIN 225
 
-uint8_t bm[25][45][3];
+//uint8_t bm[25][45][3];
 uint16_t chunks[25][45];
 
 
@@ -43,16 +45,6 @@ void setup() {
 
   // filling current bitmap with rainbow stuff
   //fill_rainbow(&bm[0][0][0]);
-
-
-  bm[3][4][0] = 25;
-  bm[3][6][0] = 25;
-
-  bm[5][7][0] = 25;
-  bm[6][6][0] = 25;
-  bm[6][5][0] = 25;
-  bm[6][4][0] = 25;
-  bm[5][3][0] = 25;
   
   // takes time, not needed when not debugging
   //print_bitmap(&bm[0][0][0]);
