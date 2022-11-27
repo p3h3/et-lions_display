@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "constants.h"
+
 
 uint8_t current_bitmap[25][45][3];
 

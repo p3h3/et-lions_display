@@ -6,6 +6,7 @@
 // Created by skip on 18-11-22.
 //
 
+#include "constants.h"
 
 void chunking(uint16_t  (*chunks)){
     // declare variables here for performance

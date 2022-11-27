@@ -19,9 +19,9 @@ with open(output_file, 'w') as file:
         bigassstring += "{\n"
         for j in range(45):
             r, g, b = rgb_im.getpixel((j, i))
-            r //= 10
-            g //= 10
-            b //= 10
+            r //= 5
+            g //= 5
+            b //= 5
             if j == 44:
                 bigassstring += "{" + str(r) + "," + str(g) + "," + str(b) + "}\n"
             else:
