@@ -48,6 +48,8 @@ void updateLEDs(){
 void setup() {
   Serial.begin(115200);
 
+  Serial.printf("==========\nLED Matrix\n==========\n");
+
   FastLED.addLeds<WS2812B, 18, EOrder::GRB>(leds, 0 * LEDS_PER_PIN, LEDS_PER_PIN);
   FastLED.addLeds<WS2812B, 19, EOrder::GRB>(leds, 1 * LEDS_PER_PIN, LEDS_PER_PIN);
   FastLED.addLeds<WS2812B, 21, EOrder::GRB>(leds, 2 * LEDS_PER_PIN, LEDS_PER_PIN);
@@ -58,6 +60,7 @@ void setup() {
     // basically a lookup table for led numbers with input parameters y and x
     chunking(&chunks[0][0]);
 
+  bleInitBitmapPointer(&bm[0][0][0]);
 
   allTogether();
 
