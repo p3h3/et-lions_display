@@ -50,6 +50,7 @@ void setup() {
 
   Serial.printf("==========\nLED Matrix\n==========\n");
 
+  // add the parts of the matrix as segments of the leds array
   FastLED.addLeds<WS2812B, 18, EOrder::GRB>(leds, 0 * LEDS_PER_PIN, LEDS_PER_PIN);
   FastLED.addLeds<WS2812B, 19, EOrder::GRB>(leds, 1 * LEDS_PER_PIN, LEDS_PER_PIN);
   FastLED.addLeds<WS2812B, 21, EOrder::GRB>(leds, 2 * LEDS_PER_PIN, LEDS_PER_PIN);
@@ -57,8 +58,8 @@ void setup() {
   FastLED.addLeds<WS2812B, 23, EOrder::GRB>(leds, 4 * LEDS_PER_PIN, LEDS_PER_PIN);
     
 
-    // basically a lookup table for led numbers with input parameters y and x
-    chunking(&chunks[0][0]);
+  // basically a lookup table for led numbers with input parameters y and x
+  chunking(&chunks[0][0]);
 
   bleInitBitmapPointer(&bm[0][0][0]);
 
@@ -67,11 +68,11 @@ void setup() {
 }
 
 void loop() {
+
+  // FastLED show takes about 7ms
   updateLEDs();
   FastLED.show();
 
-  delay(100);
-
-
-
+  // together it's about 33ms - about 30fps
+  delay(26);
 }
