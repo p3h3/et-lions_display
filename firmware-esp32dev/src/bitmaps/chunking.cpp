@@ -8,20 +8,24 @@
 
 #include "constants.h"
 
+
+// 
 void chunking(uint16_t  (*chunks)){
     // declare variables here for performance
-    
+    int chunky, chunkx;
+    int chunkinterny, chunkinternx;
+    uint16_t led_number;
     for(int y = 0; y < 25; y++){
-        int chunky = y / 5;
+        chunky = y / 5;
         for(int x = 0; x < 45; x++){
-            int chunkx = x / 5;
+            chunkx = x / 5;
 
-            int chunkinterny = y % 5;
-            int chunkinternx = x % 5;
+            chunkinterny = y % 5;
+            chunkinternx = x % 5;
 
-            uint16_t led_number = chunky * 25 * 9 + chunkx * 25   +   chunkinterny * 5 + chunkinternx;
+            led_number = chunky * 25 * 9 + chunkx * 25   +   chunkinterny * 5 + chunkinternx;
 
-            // for debugging xD not needed anymore now that it works but ayo.. what a statement
+            // for debugging - not needed anymore now that it works but ayo.. what a statement
             //Serial.printf("x: %d, y: %d, chx: %d, chy: %d, cix: %d, ciy: %d, led: %d\n", x,y,chunkx,chunky,chunkinternx,chunkinterny, led_number);
 
 
@@ -33,7 +37,11 @@ void chunking(uint16_t  (*chunks)){
 
 
 
+
+
 /*
+
+Just used for testing, to be removed eventually
 
 int main(){
     // just to be sure
