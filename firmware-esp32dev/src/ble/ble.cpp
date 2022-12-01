@@ -5,7 +5,7 @@
 
 #include "constants.h"
 
-#include "connected.h"
+#include "images/connected.h"
 
 
 uint8_t *bm_pointer;
