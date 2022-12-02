@@ -47,22 +47,21 @@ BLEServer *initBLE(){
 }
 
 void initServicesAndChars(BLEServer *pServer){
-    BLEService *pService = pServer->createService(SERVICE_UUID);
-    BLECharacteristic *pCharacteristic = pService->createCharacteristic(
-                                            CHARACTERISTIC_UUID,
+    BLEService *gen_control_service = pServer->createService(GENERAL_CONTROL_SERVICE_UUID);
+    BLECharacteristic *gen_control_char = gen_control_service->createCharacteristic(
+                                            GENERAL_CONTROL_CHAR_UUID,
                                             BLECharacteristic::PROPERTY_READ |
                                             BLECharacteristic::PROPERTY_WRITE
                                         );
+    gen_control_char->setValue("obama lama");
+    gen_control_char->setCallbacks(new bleCallback());
 
-    pCharacteristic->setValue("obama lama");
-    pCharacteristic->setCallbacks(new bleCallback());
-
-    pService->start();
+    gen_control_service->start();
 }
 
 void startBLE(){
     BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-    pAdvertising->addServiceUUID(SERVICE_UUID);
+    pAdvertising->addServiceUUID(GENERAL_CONTROL_SERVICE_UUID);
     pAdvertising->setScanResponse(true);
     pAdvertising->setMinPreferred(0x06);  // functions that help with iPhone connections issue
     pAdvertising->setMinPreferred(0x12);
