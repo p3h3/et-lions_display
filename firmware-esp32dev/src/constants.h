@@ -1,4 +1,3 @@
-
 // bitmap and chunk stuff
 #define WIDTH_CHUNK_PX 5
 #define HEIGHT_CHUNK_PX 5

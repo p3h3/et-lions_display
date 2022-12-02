@@ -1,15 +1,19 @@
 #include <Arduino.h>
 
-#include "chunking.h"
-#include "bitmaps.h"
-#include "ble.h"
+#include "bitmaps/chunking.h"
+#include "bitmaps/bitmaps.h"
+#include "ble/ble.h"
 
-#include "img.h"
-
-
+#include "images/img.h"
 
 
-#define FASTLED_ESP32_I2S // This achieves the desired degree of parallelization
+
+// This is the key to high framerates!
+// it enables the 5 output pins to shift out the data in parallel rather than sequentially 
+// => 5 times the bandwith!
+#define FASTLED_ESP32_I2S 
+
+
 #include <FastLED.h>
 
 #define LEDS_PER_PIN 225
@@ -48,7 +52,8 @@ void updateLEDs(){
 void setup() {
   Serial.begin(115200);
 
-  Serial.printf("==========\nLED Matrix\n==========\n");
+  Serial.printf("====================\n===  LED Matrix  ===\n====================\n");
+  Serial.printf("     Ohne Strom     \n  waer hier garnix  \n        los        \n");
 
   // add the parts of the matrix as segments of the leds array
   FastLED.addLeds<WS2812B, 18, EOrder::GRB>(leds, 0 * LEDS_PER_PIN, LEDS_PER_PIN);
@@ -61,9 +66,10 @@ void setup() {
   // basically a lookup table for led numbers with input parameters y and x
   chunking(&chunks[0][0]);
 
-  bleInitBitmapPointer(&bm[0][0][0]);
 
-  allTogether();
+  // start all the ble stack
+  bleInitBitmapPointer(&bm[0][0][0]);
+  bleStartAll();
 
 }
 
