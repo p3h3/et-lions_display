@@ -1,9 +1,9 @@
 from PIL import Image
 
-im = Image.open('connected.bmp')
+im = Image.open('obama.bmp')
 rgb_im = im.convert('RGB')
 
-output_file = '../firmware-esp32dev/src/connected.h'
+output_file = '../firmware-esp32dev/src/images/maschis.h'
 
 bigassstring = ""
 

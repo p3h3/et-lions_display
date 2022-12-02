@@ -5,7 +5,7 @@
 
 #include "constants.h"
 
-#include "images/connected.h"
+#include "images/maschis.h"
 
 
 uint8_t *bm_pointer;
@@ -23,13 +23,13 @@ class bleCallback: public BLECharacteristicCallbacks {
 
 class bleConnectionCallback: public BLEServerCallbacks{
     void onConnect(BLEServer *pServer){
-        Serial.printf("BLE connected!");
+        Serial.printf("BLE connected!\n");
         
         // hacky but it works!
         memcpy(bm_pointer, connected_bm, sizeof(connected_bm));
     }
     void onDisconnect(BLEServer *pServer){
-        Serial.printf("BLE disconnected!");
+        Serial.printf("BLE disconnected!\n");
     }
 };
 
