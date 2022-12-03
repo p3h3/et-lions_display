@@ -23,6 +23,9 @@ uint16_t chunks[25][45];
 CRGB leds[5*LEDS_PER_PIN];
 
 
+// matrix max brightness per led
+uint8_t brightness = 100;
+
 
 
 
@@ -35,9 +38,10 @@ void updateLEDs(){
     for(int x = 0; x < 45; x++){
       uint16_t led_number = chunks[y][x];
 
-      r = bm[y][x][0];
-      g = bm[y][x][1];
-      b = bm[y][x][2];
+      // you just got integer math'ed
+      r = bm[y][x][0] * (brightness / 255.0);
+      g = bm[y][x][1] * (brightness / 255.0);
+      b = bm[y][x][2] * (brightness / 255.0);
 
       leds[led_number] = CRGB(r, g, b);
     }
@@ -68,7 +72,7 @@ void setup() {
 
 
   // start all the ble stack
-  bleInitBitmapPointer(&bm[0][0][0]);
+  bleInitPointers(&bm[0][0][0], &brightness);
   bleStartAll();
 
 }

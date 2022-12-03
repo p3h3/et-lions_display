@@ -10,16 +10,38 @@
 
 uint8_t *bm_pointer;
 
+uint8_t *brightness_pointer;
+uint8_t brightness_before;
 
-class bleCallback: public BLECharacteristicCallbacks {
+
+
+class genControlCallback: public BLECharacteristicCallbacks {
     void onRead(BLECharacteristic* pCharacteristic){
-        Serial.printf("char read");
+        Serial.printf("general control characteristic read");
     }
 
     void onWrite(BLECharacteristic *PCharacteristic){
-        Serial.printf("char write");
+        uint8_t firstByte = PCharacteristic->getValue()[0];
+
+        // if the first bit of the first byte is true
+        if((firstByte & 0x01) == 1){
+            // turn on / keep on the matrix
+            *brightness_pointer = brightness_before;
+        }else{
+            // turn off / keep off the matrix
+            brightness_before = *brightness_pointer;
+            *brightness_pointer = 0;
+        }
+
+        // set brightness of the matrix, ignore brughtness 0
+        uint8_t second_byte = PCharacteristic->getValue()[1];
+        if(second_byte != 0){
+            *brightness_pointer = second_byte;
+        }
+
     }
 };
+
 
 class bleConnectionCallback: public BLEServerCallbacks{
     void onConnect(BLEServer *pServer){
@@ -34,13 +56,14 @@ class bleConnectionCallback: public BLEServerCallbacks{
 };
 
 
-void bleInitBitmapPointer(uint8_t *bitmap){
+void bleInitPointers(uint8_t *bitmap, uint8_t *brightness){
     bm_pointer = bitmap;
+    brightness_pointer = brightness;
 }
 
 
 BLEServer *initBLE(){
-    BLEDevice::init("mmmmmhhhhhhhh");
+    BLEDevice::init("led matrix");
     BLEServer *pServer = BLEDevice::createServer();
     pServer->setCallbacks(new bleConnectionCallback());
     return pServer;
@@ -54,7 +77,7 @@ void initServicesAndChars(BLEServer *pServer){
                                             BLECharacteristic::PROPERTY_WRITE
                                         );
     gen_control_char->setValue("obama lama");
-    gen_control_char->setCallbacks(new bleCallback());
+    gen_control_char->setCallbacks(new genControlCallback());
 
     gen_control_service->start();
 }
