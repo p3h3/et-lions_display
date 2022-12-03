@@ -43,6 +43,44 @@ class genControlCallback: public BLECharacteristicCallbacks {
 };
 
 
+
+class bitmapControlCallback: public BLECharacteristicCallbacks {
+    void onRead(BLECharacteristic* pCharacteristic){
+        Serial.printf("bitmap control characteristic read");
+    }
+
+    void onWrite(BLECharacteristic *PCharacteristic){
+        uint8_t firstByte = PCharacteristic->getValue()[0];
+
+        // if the first bit of the first byte is true
+        if((firstByte & 0x01) == 1){
+            // turn on / keep on the matrix
+            *brightness_pointer = brightness_before;
+        }else{
+            // turn off / keep off the matrix
+            brightness_before = *brightness_pointer;
+            *brightness_pointer = 0;
+        }
+
+        // set brightness of the matrix, ignore brughtness 0
+        uint8_t second_byte = PCharacteristic->getValue()[1];
+        if(second_byte != 0){
+            *brightness_pointer = second_byte;
+        }
+
+    }
+};
+
+
+
+class bitmapDataCallback: public BLECharacteristicCallbacks {
+    void onWrite(BLECharacteristic *PCharacteristic){
+        Serial.printf("bitmap data write\n");
+    }
+};
+
+
+
 class bleConnectionCallback: public BLEServerCallbacks{
     void onConnect(BLEServer *pServer){
         Serial.printf("BLE connected!\n");
@@ -70,6 +108,7 @@ BLEServer *initBLE(){
 }
 
 void initServicesAndChars(BLEServer *pServer){
+    // general control service
     BLEService *gen_control_service = pServer->createService(GENERAL_CONTROL_SERVICE_UUID);
     BLECharacteristic *gen_control_char = gen_control_service->createCharacteristic(
                                             GENERAL_CONTROL_CHAR_UUID,
@@ -79,7 +118,50 @@ void initServicesAndChars(BLEServer *pServer){
     gen_control_char->setValue("obama lama");
     gen_control_char->setCallbacks(new genControlCallback());
 
+
+
+
+    // bitmap service
+    BLEService *bitmap_service = pServer->createService(BITMAP_SERVICE_UUID);
+    BLECharacteristic *bitmap_control_char = bitmap_service->createCharacteristic(
+                                            BITMAP_CONTROL_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_READ |
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap_control_char->setValue("obama lama");
+    bitmap_control_char->setCallbacks(new bitmapControlCallback());
+
+    // data characteristics - all go to one callback
+    BLECharacteristic *bitmap1_char = bitmap_service->createCharacteristic(
+                                            BITMAP_BITMAP1_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap1_char->setCallbacks(new bitmapDataCallback());
+    BLECharacteristic *bitmap2_char = bitmap_service->createCharacteristic(
+                                            BITMAP_BITMAP2_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap2_char->setCallbacks(new bitmapDataCallback());
+    BLECharacteristic *bitmap3_char = bitmap_service->createCharacteristic(
+                                            BITMAP_BITMAP3_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap3_char->setCallbacks(new bitmapDataCallback());
+    BLECharacteristic *bitmap4_char = bitmap_service->createCharacteristic(
+                                            BITMAP_BITMAP4_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap4_char->setCallbacks(new bitmapDataCallback());
+    BLECharacteristic *bitmap5_char = bitmap_service->createCharacteristic(
+                                            BITMAP_BITMAP5_CHAR_UUID,
+                                            BLECharacteristic::PROPERTY_WRITE
+                                        );
+    bitmap5_char->setCallbacks(new bitmapDataCallback());
+
+
+    // start the services (otherwise they aren't displayed and aren't accessible)
     gen_control_service->start();
+    bitmap_service->start();
 }
 
 void startBLE(){
