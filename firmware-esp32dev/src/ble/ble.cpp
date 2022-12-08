@@ -81,9 +81,7 @@ class bitmapControlCallback: public BLECharacteristicCallbacks {
 
         // set brightness of the matrix, ignore brughtness 0
         uint8_t second_byte = PCharacteristic->getValue()[1];
-        if(second_byte != 0){
-            *brightness_pointer = second_byte;
-        }
+        *brightness_pointer = second_byte;
 
     }
 };
@@ -135,6 +133,10 @@ class picCharacteristcCallback: public BLECharacteristicCallbacks {
 
         if(firstByte == 11){
             memcpy(bm_pointer, medical_strippers_bm, sizeof(go_lions_rainbow_bm));
+        }
+
+        if(*brightness_pointer == 0){
+            *brightness_pointer = 100;
         }
     }
 };

@@ -32,7 +32,7 @@ CRGB leds[5*LEDS_PER_PIN];
 
 
 // matrix max brightness per led
-uint8_t brightness = 100;
+uint8_t brightness = 90;
 
 uint8_t animation = 0;
 
@@ -110,7 +110,7 @@ void loop() {
       if(ohne_strom_slide == 0 && first_loop_for_new_pic){
         memcpy(bm, ohne_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 0 && (millis() - slide_time_counter) > 900){
+      if(ohne_strom_slide == 0 && (millis() - slide_time_counter) > 900*0.8){
         ohne_strom_slide = 1;
         slide_time_counter = 0;
 
@@ -122,7 +122,7 @@ void loop() {
       if(ohne_strom_slide == 1 && first_loop_for_new_pic){
         memcpy(bm, strom_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 1 && (millis() - slide_time_counter) > 800){
+      if(ohne_strom_slide == 1 && (millis() - slide_time_counter) > 800*0.9){
         ohne_strom_slide = 2;
         slide_time_counter = 0;
         return;
@@ -133,7 +133,7 @@ void loop() {
       if(ohne_strom_slide == 2 && first_loop_for_new_pic){
         memcpy(bm, waer_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 2 && (millis() - slide_time_counter) > 280){
+      if(ohne_strom_slide == 2 && (millis() - slide_time_counter) > 280*0.8){
         ohne_strom_slide = 3;
         slide_time_counter = 0;
         return;
@@ -144,7 +144,7 @@ void loop() {
       if(ohne_strom_slide == 3 && first_loop_for_new_pic){
         memcpy(bm, hier_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 3 && (millis() - slide_time_counter) > 280){
+      if(ohne_strom_slide == 3 && (millis() - slide_time_counter) > 280*0.8){
         ohne_strom_slide = 4;
         slide_time_counter = 0;
         return;
@@ -156,7 +156,7 @@ void loop() {
       if(ohne_strom_slide == 4 && first_loop_for_new_pic){
         memcpy(bm, garnix_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 4 && (millis() - slide_time_counter) > 480){
+      if(ohne_strom_slide == 4 && (millis() - slide_time_counter) > 480*0.8){
         ohne_strom_slide = 5;
         slide_time_counter = 0;
         return;
@@ -168,7 +168,7 @@ void loop() {
       if(ohne_strom_slide == 5 && first_loop_for_new_pic){
         memcpy(bm, los_bm, sizeof(bm));
       }
-      if(ohne_strom_slide == 5 && (millis() - slide_time_counter) > 500){
+      if(ohne_strom_slide == 5 && (millis() - slide_time_counter) > 500*0.8){
         ohne_strom_slide = 6;
         slide_time_counter = 0;
         return;
@@ -180,7 +180,7 @@ void loop() {
       if(ohne_strom_slide == 6 && first_loop_for_new_pic){
         memset(bm, 0, sizeof(bm));
       }
-      if(ohne_strom_slide == 6 && (millis() - slide_time_counter) > 400){
+      if(ohne_strom_slide == 6 && (millis() - slide_time_counter) > 400*0.8){
         ohne_strom_slide = 0;
         slide_time_counter = 0;
       }
