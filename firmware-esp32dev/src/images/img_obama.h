@@ -1,5 +1,5 @@
 #include <stdint.h>
-uint8_t bm[25][45][3] = {
+uint8_t obama_bm[25][45][3] = {
 {
 {0,0,0},
 {0,0,0},

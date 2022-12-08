@@ -3,4 +3,4 @@
 
 void bleStartAll();
 
-void bleInitPointers(uint8_t *bitmap, uint8_t *brightness);
+void bleInitPointers(uint8_t *bitmap, uint8_t *brightness, uint8_t *animation);

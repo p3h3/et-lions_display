@@ -1,9 +1,9 @@
 from PIL import Image
 
-im = Image.open('obama.bmp')
+im = Image.open('./img/medicalstrippers.png')
 rgb_im = im.convert('RGB')
 
-output_file = '../firmware-esp32dev/src/images/maschis.h'
+output_file = '../firmware-esp32dev/src/images/medical_strippers.h'
 
 bigassstring = ""
 
@@ -11,7 +11,7 @@ bigassstring = ""
 with open(output_file, 'w') as file:
     #Data Structure
     bigassstring += "#include <stdint.h>\n"
-    bigassstring += "uint8_t connected_bm[25][45][3] = {\n"
+    bigassstring += "uint8_t medical_strippers_bm[25][45][3] = {\n"
 
     for i in range(25):
         bigassstring += "{\n"
