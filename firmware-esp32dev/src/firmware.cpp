@@ -14,6 +14,15 @@
 #include "images/garnix.h"
 #include "images/los.h"
 
+#include "images/happybd_0.h"
+#include "images/happybd_1.h"
+#include "images/happybd_2.h"
+
+#include "images/wsd0.h"
+#include "images/wsd1.h"
+#include "images/wsd2.h"
+
+
 
 
 // This is the key to high framerates!
@@ -37,6 +46,9 @@ uint8_t brightness = 90;
 uint8_t animation = 0;
 
 uint8_t ohne_strom_slide = 0;
+
+uint8_t happy_bd_slide = 0;
+uint8_t wsd_slide = 0;
 
 long slide_time_counter = 0;
 
@@ -185,6 +197,109 @@ void loop() {
         slide_time_counter = 0;
       }
     }
+
+
+
+
+
+
+
+    // happy_bd
+    if(animation == 2){
+      
+      if(happy_bd_slide == 0 && first_loop_for_new_pic){
+        memcpy(bm, bd_0_bm, sizeof(bm));
+      }
+      if(happy_bd_slide == 0 && (millis() - slide_time_counter) > 1200){
+        happy_bd_slide = 1;
+        slide_time_counter = 0;
+
+        return;
+      }
+
+
+
+      if(happy_bd_slide == 1 && first_loop_for_new_pic){
+        memcpy(bm, bd_1_bm, sizeof(bm));
+      }
+      if(happy_bd_slide == 1 && (millis() - slide_time_counter) > 1200){
+        happy_bd_slide = 2;
+        slide_time_counter = 0;
+        return;
+      }
+
+
+
+      if(happy_bd_slide == 2 && first_loop_for_new_pic){
+        memcpy(bm, bd_2_bm, sizeof(bm));
+      }
+      if(happy_bd_slide == 2 && (millis() - slide_time_counter) > 1500){
+        happy_bd_slide = 0;
+        slide_time_counter = 0;
+        return;
+      }
+
+      if(happy_bd_slide == 3 && first_loop_for_new_pic){
+        memset(bm, 0, sizeof(bm));
+      }
+      if(happy_bd_slide == 3 && (millis() - slide_time_counter) > 400){
+        happy_bd_slide = 0;
+        slide_time_counter = 0;
+      }
+    }
+
+
+
+
+
+
+
+
+    
+    // wyld sus digga
+    if(animation == 3){
+      
+      if(wsd_slide == 0 && first_loop_for_new_pic){
+        memcpy(bm, wsd0_bm, sizeof(bm));
+      }
+      if(wsd_slide == 0 && (millis() - slide_time_counter) > 600){
+        wsd_slide = 1;
+        slide_time_counter = 0;
+
+        return;
+      }
+
+
+
+      if(wsd_slide == 1 && first_loop_for_new_pic){
+        memcpy(bm, wsd1_bm, sizeof(bm));
+      }
+      if(wsd_slide == 1 && (millis() - slide_time_counter) > 600){
+        wsd_slide = 2;
+        slide_time_counter = 0;
+        return;
+      }
+
+
+
+      if(wsd_slide == 2 && first_loop_for_new_pic){
+        memcpy(bm, wsd2_bm, sizeof(bm));
+      }
+      if(wsd_slide == 2 && (millis() - slide_time_counter) > 600){
+        wsd_slide = 3;
+        slide_time_counter = 0;
+        return;
+      }
+
+      if(wsd_slide == 3 && first_loop_for_new_pic){
+        memset(bm, 0, sizeof(bm));
+      }
+      if(wsd_slide == 3 && (millis() - slide_time_counter) > 200){
+        wsd_slide = 0;
+        slide_time_counter = 0;
+      }
+    }
+
 
 
   // FastLED show takes about 7ms

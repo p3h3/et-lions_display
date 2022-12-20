@@ -6,7 +6,7 @@
 #include "constants.h"
 
 #include "images/connected.h"
-
+/*
 #include "images/go_lions_rainbow.h"
 #include "images/no_bitches.h"
 #include "images/adidaslions.h"
@@ -18,6 +18,15 @@
 #include "images/wtf.h"
 #include "images/bushof_dealers.h"
 #include "images/medical_strippers.h"
+*/
+
+#include "images/wtf.h"
+#include "images/no_bitches.h"
+
+
+#include "images/maevsi.h"
+#include "images/maevsi_logo.h"
+#include "images/trapparty.h"
 
 
 
@@ -95,12 +104,16 @@ class picCharacteristcCallback: public BLECharacteristicCallbacks {
         // cancel animation
         *animation_pointer = 0;
 
+        /*
+
         if(firstByte == 1){
             memcpy(bm_pointer, go_lions_rainbow_bm, sizeof(go_lions_rainbow_bm));
         }
+        */
         if(firstByte == 2){
             memcpy(bm_pointer, no_bitches_bm, sizeof(no_bitches_bm));
         }
+        /*
 
         if(firstByte == 3){
             memcpy(bm_pointer, adidas_lions_bm, sizeof(go_lions_rainbow_bm));
@@ -122,10 +135,13 @@ class picCharacteristcCallback: public BLECharacteristicCallbacks {
         if(firstByte == 8){
             memcpy(bm_pointer, toor_bm, sizeof(no_bitches_bm));
         }
+        */
 
         if(firstByte == 9){
-            memcpy(bm_pointer, wtf_bm, sizeof(go_lions_rainbow_bm));
+            memcpy(bm_pointer, wtf_bm, sizeof(no_bitches_bm));
         }
+
+        /*
 
         if(firstByte == 10){
             memcpy(bm_pointer, bushof_dealers_bm, sizeof(no_bitches_bm));
@@ -133,6 +149,21 @@ class picCharacteristcCallback: public BLECharacteristicCallbacks {
 
         if(firstByte == 11){
             memcpy(bm_pointer, medical_strippers_bm, sizeof(go_lions_rainbow_bm));
+        }
+
+*/
+
+
+
+        if(firstByte == 12){
+            memcpy(bm_pointer, maevsi_bm, sizeof(no_bitches_bm));
+        }
+
+        if(firstByte == 13){
+            memcpy(bm_pointer, maevsi_logo_bm, sizeof(trapparty_bm));
+        }
+        if(firstByte == 14){
+            memcpy(bm_pointer, trapparty_bm, sizeof(trapparty_bm));
         }
 
         if(*brightness_pointer == 0){
@@ -148,6 +179,16 @@ class animationCharacteristicCallback: public BLECharacteristicCallbacks {
         // ohne strom animation
         if(firstByte == 1){
             *animation_pointer = 1;
+        }
+
+        // happy birthday animation
+        if(firstByte == 2){
+            *animation_pointer = 2;
+        }
+
+        // wyld sus digga animation
+        if(firstByte == 3){
+            *animation_pointer = 3;
         }
     }
 };
